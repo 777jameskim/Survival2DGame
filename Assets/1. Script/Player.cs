@@ -35,12 +35,12 @@ public class Player : MonoBehaviour
         if (x > 0) sr.flipX = false;
         else if (x < 0) sr.flipX = true;
 
-        if(x != 0 && state == PlayerState.Stand)
+        if((x != 0 || y != 0) && state == PlayerState.Stand)
         {
             state = PlayerState.Run;
             sa.SetSprite(run, GameParams.playerRunDelay);
         }
-        else if(x == 0 && state == PlayerState.Run)
+        else if(x == 0 && y == 0 && state == PlayerState.Run)
         {
             state = PlayerState.Stand;
             sa.SetSprite(stand, GameParams.playerStandDelay);
