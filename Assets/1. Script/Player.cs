@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
     [SerializeField] private List<Sprite> dead;
+    [SerializeField] private Transform firePos;
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     private PlayerState state = PlayerState.Stand;
@@ -45,7 +46,33 @@ public class Player : MonoBehaviour
             state = PlayerState.Stand;
             sa.SetSprite(stand, GameParams.playerStandDelay);
         }
+
+        FindMonster();
     }
 
+    private void FindMonster()
+    {
+        GameObject[] monObjs = GameObject.FindGameObjectsWithTag("monster");
+        if (monObjs.Length == 0) return;
+        float targetDis = GameParams.playerFindDistance;
+        Monster targetMon = null;
+        foreach (GameObject monObj in monObjs)
+        {
+            Monster mon = monObj.GetComponent<Monster>();
+            float monDis = Vector2.Distance(transform.position, monObj.transform.position);
+            if(monDis < targetDis)
+            {
+                targetDis = monDis;
+                targetMon = mon;
+            }
+        }
+        if (targetMon != null) FirePosRotation(targetMon);
+    }
 
+    public void FirePosRotation(Monster m)
+    {
+        Vector2 vec = transform.position - m.transform.position;
+        float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+        firePos.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+    }
 }

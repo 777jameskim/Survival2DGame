@@ -22,6 +22,11 @@ public class SpriteAnimation : MonoBehaviour
     void Update()
     {
         if (sprites.Count == 0) return;
+        if (sprites.Count == 1)
+        {
+            sr.sprite = sprites[0];
+            return;
+        }
 
         timer += Time.deltaTime;
         if(timer >= delay)
@@ -32,12 +37,24 @@ public class SpriteAnimation : MonoBehaviour
         }
     }
 
-    public void SetSprite(List<Sprite> sprites, float delay)
+    public void Initialize(List<Sprite> sprites, float delay)
     {
         count = 1;
         timer = 0;
         this.sprites = sprites;
         this.delay = delay;
+        if (sr == null) sr = GetComponent<SpriteRenderer>();
         sr.sprite = sprites[0];
+    }
+
+    public void SetSprite(List<Sprite> sprites, float delay)
+    {
+        Initialize(sprites, delay);
+    }
+
+    public void SetSprite(SpriteRenderer sr, List<Sprite> sprites, float delay)
+    {
+        this.sr = sr;
+        Initialize(sprites, delay);
     }
 }
