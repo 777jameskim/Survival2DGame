@@ -11,9 +11,30 @@ public enum MonsterState
     Hit,
     Dead
 }
+public class Data
+{
+    public float HP;
+    public float EXP;
+    public float speed;
+}
+
+public class PlayerData: Data
+{
+    public float maxEXP;
+    public float findRange;
+    public int killCount;
+    public int level;
+}
+    
+public class MonsterData : Data
+{
+    public float hitDelayTime;
+    public float attackRange;
+}
 
 public static class GameParams
 {
+
     //Camera
     public static float cameraX = 11f;
     public static float cameraY = 15f;
@@ -24,20 +45,7 @@ public static class GameParams
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
-    public static float playerSpeed = 5f;
-    public static float playerHP;
-    public static float playerMaxEXP;
-    public static float playerEXP;
-    public static float playerFindDistance = 3f;
-    public static int killCount;
-    public static int level;
 
-
-    // Monster
-    public static float monsterSpeed = 2f;
-    public static float monsterHP;
-    public static float monsterEXP;
-    public static float monsterHitDelayTime;
 
     public static int stage;
 }

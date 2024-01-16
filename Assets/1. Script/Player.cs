@@ -10,14 +10,29 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
     [SerializeField] private List<Sprite> dead;
-    [SerializeField] private Transform firePos;
+
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     private PlayerState state = PlayerState.Stand;
+    private PlayerData data = new PlayerData();
+
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private Transform fireRot;
+    [SerializeField] private Transform firePos;
+    [SerializeField] private Transform bulletParent;
+    [SerializeField] private float fireDelay;
+    private float fireTimer;
 
     // Start is called before the first frame update
     void Start()
     {
+        data.EXP = 0;
+        data.findRange = 5;
+        data.HP = 50;
+        data.killCount = 0;
+        data.level = 1;
+        data.maxEXP = 100;
+        data.speed = 3;
         sa = GetComponent<SpriteAnimation>();
         sr = GetComponent<SpriteRenderer>();
         sa.SetSprite(stand, GameParams.playerStandDelay);
@@ -26,8 +41,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * GameParams.playerSpeed;
-        float y = Input.GetAxis("Vertical") * Time.deltaTime * GameParams.playerSpeed;
+        float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed;
+        float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
         float clampY = Mathf.Clamp(transform.position.y + y, -GameParams.playerY, GameParams.playerY);
 
@@ -54,7 +69,7 @@ public class Player : MonoBehaviour
     {
         GameObject[] monObjs = GameObject.FindGameObjectsWithTag("monster");
         if (monObjs.Length == 0) return;
-        float targetDis = GameParams.playerFindDistance;
+        float targetDis = data.findRange;
         Monster targetMon = null;
         foreach (GameObject monObj in monObjs)
         {
@@ -66,13 +81,29 @@ public class Player : MonoBehaviour
                 targetMon = mon;
             }
         }
-        if (targetMon != null) FirePosRotation(targetMon);
+
+        if (fireTimer <= fireDelay) fireTimer += Time.deltaTime;
+        if (targetMon != null)
+        {
+            FirePosRotation(targetMon);
+            FireBullet();
+        }
     }
 
     public void FirePosRotation(Monster m)
     {
         Vector2 vec = transform.position - m.transform.position;
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-        firePos.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        fireRot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+    }
+
+    private void FireBullet()
+    {
+        if (fireTimer >= fireDelay)
+        {
+            fireTimer = 0;
+            Bullet b = Instantiate(bullet, firePos);
+            b.transform.SetParent(bulletParent);
+        }
     }
 }

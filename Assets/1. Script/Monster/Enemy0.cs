@@ -12,10 +12,13 @@ public class Enemy0 : Monster
 
     protected override void Init()
     {
+        data.HP = 10;
+        data.EXP = GameParams.stage * 10;
+        data.speed = 1f;
+        data.hitDelayTime = 0.3f;
+
         base.Init();
-        moveDistance = 1;
-        GameParams.monsterHitDelayTime = 1f;
-        GameParams.monsterHP = 100;
+        data.attackRange = 1;
         sa.SetSprite(sr, run, 0.2f);
     }
 }

@@ -13,9 +13,9 @@ public abstract class Monster : MonoBehaviour
     private Player p;
     protected SpriteRenderer sr;
     protected SpriteAnimation sa;
+    protected MonsterData data = new MonsterData();
     private MonsterState state = MonsterState.Run;
     private float hitTimer;
-    protected float moveDistance = 0f;
 
     protected virtual void Init()
     {
@@ -26,22 +26,12 @@ public abstract class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.P == null)
-            return;
-
-        // p가 타겟
-        if (p == null)
-            p = GameManager.Instance.P;
-
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Hit(1);
-        }
+        if (GameManager.Instance.P == null || state == MonsterState.Dead) return;
+        if (p == null) p = GameManager.Instance.P;
 
         if (state == MonsterState.Hit)
         {
             hitTimer -= Time.deltaTime;
-            //Debug.Log("hit : " + hitTimer);
             if (hitTimer <= 0)
             {
                 state = MonsterState.Run;
@@ -51,13 +41,12 @@ public abstract class Monster : MonoBehaviour
                 return;
         }
 
-        // 타겟에게 이동
         float mDis = Vector2.Distance(p.transform.position, transform.position);
-        if (mDis > moveDistance)
+        if (mDis > data.attackRange)
         {
             // 이동
             Vector2 dis = p.transform.position - transform.position;
-            Vector3 dir = dis.normalized * Time.deltaTime * GameParams.monsterSpeed;
+            Vector3 dir = dis.normalized * Time.deltaTime * data.speed;
 
             // 방향
             if (dir.normalized.x > 0)
@@ -75,17 +64,34 @@ public abstract class Monster : MonoBehaviour
 
     public void Hit(int damage)
     {
-        if (GameParams.monsterHP <= 0)
+        if (data.HP <= 0)
             return;
 
-        GameParams.monsterHP -= damage;
-        hitTimer = GameParams.monsterHitDelayTime;
+        data.HP -= damage;
+        hitTimer = data.hitDelayTime;
         state = MonsterState.Hit;
         sa.SetSprite(hit, 0.1f);
-        Debug.Log("Hit");
-        if (GameParams.monsterHP <= 0)
+        if (data.HP <= 0)
         {
+            state = MonsterState.Dead;
+            gameObject.tag = "Untagged";
+            Destroy(GetComponent<Collider2D>());
+            sa.SetSprite(dead, 0.2f, Dead, 2f);
+        }
+    }
 
+    public void Dead()
+    {
+        Destroy(gameObject);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Bullet b = collision.GetComponent<Bullet>();
+        if (b != null)
+        {
+            Hit(b.Power);
+            Destroy(collision.gameObject);
         }
     }
 }
