@@ -121,6 +121,8 @@ MonoBehaviour:
   - {fileID: -392852972, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   dead:
   - {fileID: 1261089785, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  exps:
+  - {fileID: 2818244262967688709, guid: d9e334ee221686d4cb9f060e6ed3ce66, type: 3}
 --- !u!50 &6037636964505418054
 Rigidbody2D:
   serializedVersion: 4

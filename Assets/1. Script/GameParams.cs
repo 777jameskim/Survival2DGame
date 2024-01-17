@@ -46,6 +46,15 @@ public static class GameParams
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
 
+    //Game
+    public static int stage = 1;
 
-    public static int stage;
+    //Item
+    public static float pickupDistance = 3f;
+    public static float collectDistance = 0.3f;
+    public static float itemSpeed = 5f;
+
+    //UI
+    public static float expBarX = 3800f;
+    public static float expBarY = 100f;
 }

@@ -9,6 +9,7 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] protected List<Sprite> run;
     [SerializeField] protected List<Sprite> hit;
     [SerializeField] protected List<Sprite> dead;
+    [SerializeField] protected List<EXP> exps;
 
     private Player p;
     protected SpriteRenderer sr;
@@ -77,6 +78,10 @@ public abstract class Monster : MonoBehaviour
             gameObject.tag = "Untagged";
             Destroy(GetComponent<Collider2D>());
             sa.SetSprite(dead, 0.2f, Dead, 2f);
+            EXP exp = Instantiate(exps[Random.Range(0, GameParams.stage)], transform.position, Quaternion.identity);
+            exp.SetPlayer(p);
+            exp.valueEXP = data.EXP;
+            p.KillCount++;
         }
     }
 

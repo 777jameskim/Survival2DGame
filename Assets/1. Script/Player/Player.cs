@@ -16,6 +16,45 @@ public class Player : MonoBehaviour
     private PlayerState state = PlayerState.Stand;
     private PlayerData data = new PlayerData();
 
+    public float EXP
+    {
+        get { return data.EXP; }
+        set
+        {
+            data.EXP = value;
+            UI.Instance.RefreshEXP();
+        }
+    }
+
+    public float MaxEXP
+    {
+        get { return data.maxEXP; }
+        set
+        {
+            data.maxEXP = value;
+            UI.Instance.RefreshEXP();
+        }
+    }
+    public int Level
+    {
+        get { return data.level; }
+        set
+        {
+            data.level = value;
+            UI.Instance.RefreshLevel();
+        }
+    }
+    public int KillCount
+    {
+        get { return data.killCount; }
+        set
+        {
+            data.killCount = value;
+            UI.Instance.RefreshKillCount();
+        }
+    }
+
+
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform fireRot;
     [SerializeField] private Transform firePos;
