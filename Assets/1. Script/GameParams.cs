@@ -18,14 +18,14 @@ public class Data
     public float speed;
 }
 
-public class PlayerData: Data
+public class PlayerData : Data
 {
     public float maxEXP;
     public float findRange;
     public int killCount;
     public int level;
 }
-    
+
 public class MonsterData : Data
 {
     public float hitDelayTime;
@@ -45,6 +45,7 @@ public static class GameParams
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
+    public static float passiveSpin = 5f;
 
     //Game
     public static int stage = 1;

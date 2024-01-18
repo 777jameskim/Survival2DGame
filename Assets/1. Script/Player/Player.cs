@@ -54,13 +54,16 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    //Active Weapon
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform fireRot;
     [SerializeField] private Transform firePos;
     [SerializeField] private Transform bulletParent;
     [SerializeField] private float fireDelay;
     private float fireTimer;
+
+    //Passive Weapon
+    [SerializeField] private Transform passiveRot;
 
     // Start is called before the first frame update
     void Start()
@@ -90,18 +93,19 @@ public class Player : MonoBehaviour
         if (x > 0) sr.flipX = false;
         else if (x < 0) sr.flipX = true;
 
-        if((x != 0 || y != 0) && state == PlayerState.Stand)
+        if ((x != 0 || y != 0) && state == PlayerState.Stand)
         {
             state = PlayerState.Run;
             sa.SetSprite(run, GameParams.playerRunDelay);
         }
-        else if(x == 0 && y == 0 && state == PlayerState.Run)
+        else if (x == 0 && y == 0 && state == PlayerState.Run)
         {
             state = PlayerState.Stand;
             sa.SetSprite(stand, GameParams.playerStandDelay);
         }
 
         FindMonster();
+        PassiveWeapon();
     }
 
     private void FindMonster()
@@ -114,7 +118,7 @@ public class Player : MonoBehaviour
         {
             Monster mon = monObj.GetComponent<Monster>();
             float monDis = Vector2.Distance(transform.position, monObj.transform.position);
-            if(monDis < targetDis)
+            if (monDis < targetDis)
             {
                 targetDis = monDis;
                 targetMon = mon;
@@ -144,5 +148,10 @@ public class Player : MonoBehaviour
             Bullet b = Instantiate(bullet, firePos);
             b.transform.SetParent(bulletParent);
         }
+    }
+
+    private void PassiveWeapon()
+    {
+        passiveRot.Rotate(Vector3.back * Time.deltaTime * GameParams.passiveSpin * Mathf.Rad2Deg);
     }
 }

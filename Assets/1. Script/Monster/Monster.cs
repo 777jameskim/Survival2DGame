@@ -45,11 +45,11 @@ public abstract class Monster : MonoBehaviour
         float mDis = Vector2.Distance(p.transform.position, transform.position);
         if (mDis > data.attackRange)
         {
-            // ÀÌµ¿
+            // ï¿½Ìµï¿½
             Vector2 dis = p.transform.position - transform.position;
             Vector3 dir = dis.normalized * Time.deltaTime * data.speed;
 
-            // ¹æÇâ
+            // ï¿½ï¿½ï¿½ï¿½
             if (dir.normalized.x > 0)
                 sr.flipX = false;
             else if (dir.normalized.x < 0)
@@ -59,7 +59,7 @@ public abstract class Monster : MonoBehaviour
         }
         else
         {
-            // °ø°Ý
+            // ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -97,6 +97,11 @@ public abstract class Monster : MonoBehaviour
         {
             Hit(b.Power);
             Destroy(collision.gameObject);
+        }
+        PassiveWeapon pw = collision.GetComponent<PassiveWeapon>();
+        if (pw != null)
+        {
+            Hit(pw.Power);
         }
     }
 }
