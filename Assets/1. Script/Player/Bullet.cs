@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int Power { get; set; } = 1;
+    public int Power { get; set; }
     public int Speed { get; set; } = 10;
 
     // Update is called once per frame

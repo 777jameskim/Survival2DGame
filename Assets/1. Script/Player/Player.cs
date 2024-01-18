@@ -53,6 +53,15 @@ public class Player : MonoBehaviour
             UI.Instance.RefreshKillCount();
         }
     }
+    
+    public int Power
+    {
+        get { return data.power; }
+        set
+        {
+            data.power = value;
+        }
+    }
 
     //Active Weapon
     [SerializeField] private Bullet bullet;
@@ -68,16 +77,17 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        data.EXP = 0;
-        data.findRange = 5;
-        data.HP = 50;
-        data.killCount = 0;
-        data.level = 1;
-        data.maxEXP = 100;
-        data.speed = 3;
         sa = GetComponent<SpriteAnimation>();
         sr = GetComponent<SpriteRenderer>();
         sa.SetSprite(stand, GameParams.playerStandDelay);
+        data.findRange = 5;
+        data.HP = 50;
+        data.speed = 3;
+        data.EXP = 0;
+        data.maxEXP = 100;
+        data.level = 1;
+        data.killCount = 0;
+        data.power = 1;
     }
 
     // Update is called once per frame
@@ -147,6 +157,7 @@ public class Player : MonoBehaviour
             fireTimer = 0;
             Bullet b = Instantiate(bullet, firePos);
             b.transform.SetParent(bulletParent);
+            b.Power = Power;
         }
     }
 

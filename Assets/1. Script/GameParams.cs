@@ -16,6 +16,7 @@ public class Data
     public float HP;
     public float EXP;
     public float speed;
+    public int power;
 }
 
 public class PlayerData : Data
