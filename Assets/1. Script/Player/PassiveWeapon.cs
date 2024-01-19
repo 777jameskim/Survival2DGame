@@ -11,12 +11,13 @@ public class PassiveWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spinSpeed = 10f;
+        spinSpeed = 5f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         transform.Rotate(Vector3.back * Time.deltaTime * spinSpeed * Mathf.Rad2Deg);
     }
 }

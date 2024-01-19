@@ -15,18 +15,22 @@ public abstract class Monster : MonoBehaviour
     protected SpriteRenderer sr;
     protected SpriteAnimation sa;
     protected MonsterData data = new MonsterData();
-    private MonsterState state = MonsterState.Run;
+    private MonsterState state;
     private float hitTimer;
+    private float attackTimer;
 
-    protected virtual void Init()
+    public virtual void Init()
     {
         sr = GetComponent<SpriteRenderer>();
         sa = GetComponent<SpriteAnimation>();
+        state = MonsterState.Run;
+        gameObject.tag = "monster";
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         if (GameManager.Instance.P == null || state == MonsterState.Dead) return;
         if (p == null) p = GameManager.Instance.P;
 
@@ -45,11 +49,9 @@ public abstract class Monster : MonoBehaviour
         float mDis = Vector2.Distance(p.transform.position, transform.position);
         if (mDis > data.attackRange)
         {
-            // �̵�
             Vector2 dis = p.transform.position - transform.position;
             Vector3 dir = dis.normalized * Time.deltaTime * data.speed;
 
-            // ����
             if (dir.normalized.x > 0)
                 sr.flipX = false;
             else if (dir.normalized.x < 0)
@@ -59,11 +61,16 @@ public abstract class Monster : MonoBehaviour
         }
         else
         {
-            // ����
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= data.attackDelay)
+            {
+                attackTimer = 0;
+                p.HP -= data.power;
+            }
         }
     }
 
-    public void Hit(int damage)
+    public void Hit(float damage)
     {
         if (data.HP <= 0)
             return;
@@ -76,7 +83,7 @@ public abstract class Monster : MonoBehaviour
         {
             state = MonsterState.Dead;
             gameObject.tag = "Untagged";
-            Destroy(GetComponent<Collider2D>());
+            GetComponent<Collider2D>().enabled = false;
             sa.SetSprite(dead, 0.2f, Dead, 2f);
             EXP exp = Instantiate(exps[Random.Range(0, GameParams.stage)], transform.position, Quaternion.identity);
             exp.SetPlayer(p);
@@ -87,7 +94,7 @@ public abstract class Monster : MonoBehaviour
 
     public void Dead()
     {
-        Destroy(gameObject);
+        Pool.Instance.SetMonster(this);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

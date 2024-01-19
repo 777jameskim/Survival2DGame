@@ -10,12 +10,14 @@ public class Enemy0 : Monster
         Init();
     }
 
-    protected override void Init()
+    public override void Init()
     {
         data.HP = 10;
         data.EXP = GameParams.stage * 10;
         data.speed = 1f;
         data.hitDelayTime = 0.3f;
+        data.power = 1f;
+        data.attackDelay = 0.5f;
 
         base.Init();
         data.attackRange = 1;

@@ -11,16 +11,35 @@ public enum MonsterState
     Hit,
     Dead
 }
+
+public enum GameState
+{
+    Play,
+    Pause,
+    Stop
+}
+
+public enum ActiveWeapons
+{
+
+}
+
+public enum PassiveWeapons
+{
+
+}
+
 public class Data
 {
     public float HP;
     public float EXP;
     public float speed;
-    public int power;
+    public float power;
 }
 
 public class PlayerData : Data
 {
+    public float maxHP;
     public float maxEXP;
     public float findRange;
     public int killCount;
@@ -31,10 +50,17 @@ public class MonsterData : Data
 {
     public float hitDelayTime;
     public float attackRange;
+    public float attackDelay;
 }
 
 public static class GameParams
 {
+    //UI
+    public static GameState state = GameState.Stop;
+    public static float hpBarX = 120f;
+    public static float hpBarY = 30f;
+    public static float expBarX = 3800f;
+    public static float expBarY = 100f;
 
     //Camera
     public static float cameraX = 11f;
@@ -55,8 +81,4 @@ public static class GameParams
     public static float pickupDistance = 3f;
     public static float collectDistance = 0.3f;
     public static float itemSpeed = 5f;
-
-    //UI
-    public static float expBarX = 3800f;
-    public static float expBarY = 100f;
 }

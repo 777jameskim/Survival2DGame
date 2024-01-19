@@ -37,11 +37,20 @@ public class UI : Singleton<UI>
 
         if (p.EXP >= p.MaxEXP)
         {
+            GameParams.state = GameState.Pause;
             p.Level++;
             p.EXP -= p.MaxEXP;
             p.MaxEXP = GameParams.stage * p.Level * 100;
             ShowLevelUpPanel();
         }
+    }
+    
+    public void RefreshHP(Image hpImage)
+    {
+        if (p == null) p = GameManager.Instance.P;
+        hpImage.rectTransform.sizeDelta = new Vector2(
+            GameParams.hpBarX * p.HP / p.MaxHP,
+            GameParams.hpBarY);
     }
 
     public void RefreshLevel()
@@ -68,21 +77,20 @@ public class UI : Singleton<UI>
     {
         GameManager.Instance.P.Power += datas[index].AddPower;
         lvPopUp.SetActive(false);
+        GameParams.state = GameState.Play;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         p = GameManager.Instance.P;
-        RefreshEXP();
-        RefreshKillCount();
-        RefreshLevel();
         lvPopUp.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         timer += Time.deltaTime;
         timeText.text = $"{((int)timer / 60).ToString("00")}:{((int)timer % 60).ToString("00")}";
     }

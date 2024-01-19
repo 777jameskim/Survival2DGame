@@ -13,19 +13,30 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameParams.state = GameState.Play;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         spawnTimer += Time.deltaTime;
         if (spawnTimer > spawnTime)
         {
             spawnTimer = 0;
             int spawnIndex = Random.Range(0, GameParams.stage - 1);
-            Monster newmon = Instantiate(mons[spawnIndex], Return_RandomPosition(), Quaternion.identity);
-            newmon.transform.SetParent(parent);
+
+            Monster m = Pool.Instance.GetMonster(Return_RandomPosition());
+            if (m == null)
+            {
+                m = Instantiate(mons[spawnIndex], Return_RandomPosition(), Quaternion.identity);
+                m.transform.SetParent(parent);
+            }
+            else
+            {
+                m.transform.position = Return_RandomPosition();
+                m.Init();
+            }
         }
     }
 

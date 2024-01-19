@@ -24,6 +24,7 @@ public class EXP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         if (p != null)
         {
             float distance = Vector2.Distance(transform.position, p.transform.position);

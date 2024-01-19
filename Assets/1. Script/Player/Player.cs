@@ -16,6 +16,27 @@ public class Player : MonoBehaviour
     private PlayerState state = PlayerState.Stand;
     private PlayerData data = new PlayerData();
 
+    [SerializeField] private UnityEngine.UI.Image hpImage;
+
+    public float HP
+    {
+        get { return data.HP; }
+        set
+        {
+            data.HP = value;
+            UI.Instance.RefreshHP(hpImage);
+        }
+    }
+    public float MaxHP
+    {
+        get { return data.maxHP; }
+        set
+        {
+            data.maxHP = value;
+            UI.Instance.RefreshHP(hpImage);
+        }
+    }
+
     public float EXP
     {
         get { return data.EXP; }
@@ -54,7 +75,7 @@ public class Player : MonoBehaviour
         }
     }
     
-    public int Power
+    public float Power
     {
         get { return data.power; }
         set
@@ -72,7 +93,9 @@ public class Player : MonoBehaviour
     private float fireTimer;
 
     //Passive Weapon
-    [SerializeField] private Transform passiveRot;
+    [SerializeField] private int pwCount;
+    [SerializeField] private PassiveWeapon[] pws;
+    [SerializeField] private Transform pwRot;
 
     // Start is called before the first frame update
     void Start()
@@ -81,18 +104,25 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         sa.SetSprite(stand, GameParams.playerStandDelay);
         data.findRange = 5;
-        data.HP = 50;
+        data.HP = 20;
+        data.maxHP = 20;
         data.speed = 3;
         data.EXP = 0;
         data.maxEXP = 100;
         data.level = 1;
         data.killCount = 0;
         data.power = 1;
+
+        HP = HP;
+        EXP = EXP;
+        Level = Level;
+        KillCount = KillCount;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameParams.state != GameState.Play) return;
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed;
         float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
@@ -115,7 +145,11 @@ public class Player : MonoBehaviour
         }
 
         FindMonster();
-        PassiveWeapon();
+        PWrotate();
+
+        if(Input.GetKeyDown(KeyCode.F1)){
+            PWgenerate();
+        }
     }
 
     private void FindMonster()
@@ -161,8 +195,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PassiveWeapon()
+    private void PWgenerate()
     {
-        passiveRot.Rotate(Vector3.back * Time.deltaTime * GameParams.passiveSpin * Mathf.Rad2Deg);
+        PassiveWeapon pw = Instantiate(pws[Random.Range(0,pws.Length)]);
+        pw.transform.SetParent(pwRot);
+        PWposition();
+    }
+
+    private void PWposition()
+    {
+        if (pwRot.childCount == 0) return;
+        float angle = pwRot.GetChild(0).transform.rotation.z;
+        for(int i = 0; i < pwRot.childCount; i++)
+        {
+
+        }
+    }
+
+    private void PWrotate()
+    {
+        pwRot.Rotate(Vector3.back * Time.deltaTime * GameParams.passiveSpin * Mathf.Rad2Deg);
     }
 }
