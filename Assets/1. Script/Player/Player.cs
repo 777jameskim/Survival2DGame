@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
         {
             data.HP = value;
             UI.Instance.RefreshHP(hpImage);
+
+            if(value <= 0 && state != PlayerState.Dead)
+            {
+                state = PlayerState.Dead;
+                sa.SetSprite(dead, 0.5f, Dead, 0.5f);
+            }
         }
     }
     public float MaxHP
@@ -122,7 +128,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameParams.state != GameState.Play) return;
+        if (GameParams.state != GameState.Play || state == PlayerState.Dead) return;
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed;
         float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
@@ -184,6 +190,12 @@ public class Player : MonoBehaviour
         fireRot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
+    public void Dead()
+    {
+        UI.Instance.ShowDeadPanel();
+        GameParams.state = GameState.Stop;
+    }
+
     private void FireBullet()
     {
         if (fireTimer >= fireDelay)
@@ -199,6 +211,7 @@ public class Player : MonoBehaviour
     {
         PassiveWeapon pw = Instantiate(pws[Random.Range(0,pws.Length)]);
         pw.transform.SetParent(pwRot);
+        pw.transform.position = Vector3.up * 3;
         PWposition();
     }
 

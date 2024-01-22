@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UI : Singleton<UI>
 {
@@ -26,7 +28,11 @@ public class UI : Singleton<UI>
     private float timer;
 
     [SerializeField] private ItemData[] datas;
-    [SerializeField] private GameObject lvPopUp;
+    [SerializeField] private GameObject lvPanel;
+    [SerializeField] private GameObject deadPanel;
+    [SerializeField] private Transform deadTitle;
+    [SerializeField] private Transform deadDesc;
+    [SerializeField] private Transform deadButtons;
 
     public void RefreshEXP()
     {
@@ -70,21 +76,45 @@ public class UI : Singleton<UI>
         lvUIs[0].desc1Text.text = datas[0].ItemDesc1;
         lvUIs[0].desc2Text.text = datas[0].ItemDesc2;
 
-        lvPopUp.SetActive(true);
+        lvPanel.SetActive(true);
     }
 
     public void OnClick(int index)
     {
         GameManager.Instance.P.Power += datas[index].AddPower;
-        lvPopUp.SetActive(false);
+        lvPanel.SetActive(false);
         GameParams.state = GameState.Play;
+    }
+
+    public void ShowDeadPanel()
+    {
+        deadPanel.SetActive(true);
+        deadTitle.DOMoveY(1360, 1f)
+            .SetEase(Ease.OutBounce)
+            .SetDelay(0.5f)
+            .OnComplete(() => 
+                deadDesc.DOMoveY(1260, 1f)
+                    .SetDelay(0.5f)
+                    .OnComplete(() => deadButtons.gameObject.SetActive(true)));
+    }
+
+    public void OnExit()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    public void OnRestart()
+    {
+        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         p = GameManager.Instance.P;
-        lvPopUp.SetActive(false);
+        lvPanel.SetActive(false);
+        deadPanel.SetActive(false);
     }
 
     // Update is called once per frame
