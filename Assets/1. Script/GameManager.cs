@@ -17,6 +17,21 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    [System.Serializable]
+    public class PlayerData
+    {
+        public List<Sprite> stand;
+        public List<Sprite> run;
+        public List<Sprite> dead;
+
+        public float speedMod;
+        public float fireMod;
+        public float atkMod;
+        public float rangeMod;
+    }
+
+    public List<PlayerData> pDatas;
+
     public void Awake()
     {
         if (GameManager.Instance != this) Destroy(gameObject);
@@ -25,7 +40,6 @@ public class GameManager : Singleton<GameManager>
 
     public void OnStart()
     {
-        SceneManager.LoadScene("GameScene");
-        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+        SceneManager.LoadScene("CharSelect");
     }
 }

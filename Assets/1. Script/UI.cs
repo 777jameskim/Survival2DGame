@@ -100,13 +100,18 @@ public class UI : Singleton<UI>
 
     public void OnExit()
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("CharSelect");
     }
 
     public void OnRestart()
     {
         SceneManager.LoadScene("GameScene");
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+    }
+
+    private void Awake()
+    {
+        if (GameManager.Instance == null) SceneManager.LoadScene("TitleScene");
     }
 
     // Start is called before the first frame update

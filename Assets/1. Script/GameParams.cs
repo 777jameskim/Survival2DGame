@@ -44,6 +44,7 @@ public class PlayerData : Data
     public float findRange;
     public int killCount;
     public int level;
+    public float fireSpeed;
 }
 
 public class MonsterData : Data
@@ -68,11 +69,12 @@ public static class GameParams
     public static float cameraZ = -10f;
 
     //Player
+    public static int charSelect = 0;
     public static float playerX = 19f;
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
-    public static float passiveSpin = 5f;
+    public static float passiveSpin = 0.001f;
 
     //Game
     public static int stage = 1;

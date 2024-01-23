@@ -7,15 +7,16 @@ using System.Linq;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private List<Sprite> stand;
-    [SerializeField] private List<Sprite> run;
-    [SerializeField] private List<Sprite> dead;
-
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     private PlayerState state = PlayerState.Stand;
     private PlayerData data = new PlayerData();
 
+    private GameManager.PlayerData pData;
+
+    private List<Sprite> stand;
+    private List<Sprite> run;
+    private List<Sprite> dead;
     [SerializeField] private UnityEngine.UI.Image hpImage;
 
     public float HP
@@ -95,13 +96,24 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform fireRot;
     [SerializeField] private Transform firePos;
     [SerializeField] private Transform bulletParent;
-    [SerializeField] private float fireDelay;
+    private float fireDelay
+    {
+        get { return 1 / (data.fireSpeed * pData.fireMod); }
+    }
     private float fireTimer;
 
     //Passive Weapon
     [SerializeField] private int pwCount;
     [SerializeField] private PassiveWeapon[] pws;
     [SerializeField] private Transform pwRot;
+
+    private void Awake()
+    {
+        pData = GameManager.Instance.pDatas[GameParams.charSelect];
+        stand = pData.stand.ToList();
+        run = pData.run.ToList();
+        dead = pData.dead.ToList();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -118,6 +130,9 @@ public class Player : MonoBehaviour
         data.level = 1;
         data.killCount = 0;
         data.power = 1;
+        data.fireSpeed = 5f;
+
+        //data.range = data.range * pData.rangeMod;
 
         HP = HP;
         EXP = EXP;
@@ -129,8 +144,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (GameParams.state != GameState.Play || state == PlayerState.Dead) return;
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed;
-        float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed;
+        float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed * pData.speedMod;
+        float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed * pData.speedMod;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
         float clampY = Mathf.Clamp(transform.position.y + y, -GameParams.playerY, GameParams.playerY);
 
@@ -155,6 +170,10 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.F1)){
             PWgenerate();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            PWdelete();
         }
     }
 
@@ -203,7 +222,7 @@ public class Player : MonoBehaviour
             fireTimer = 0;
             Bullet b = Instantiate(bullet, firePos);
             b.transform.SetParent(bulletParent);
-            b.Power = Power;
+            b.Power = Power * pData.atkMod;
         }
     }
 
@@ -211,17 +230,25 @@ public class Player : MonoBehaviour
     {
         PassiveWeapon pw = Instantiate(pws[Random.Range(0,pws.Length)]);
         pw.transform.SetParent(pwRot);
-        pw.transform.position = Vector3.up * 3;
+        PWposition();
+    }
+
+    private void PWdelete()
+    {
+        Destroy(pwRot.GetChild(pwRot.childCount - 1).gameObject);
         PWposition();
     }
 
     private void PWposition()
     {
         if (pwRot.childCount == 0) return;
-        float angle = pwRot.GetChild(0).transform.rotation.z;
+        float angleSpacing = 2 * Mathf.PI / pwRot.childCount;
         for(int i = 0; i < pwRot.childCount; i++)
         {
-
+            pwRot.GetChild(i).position = new Vector3(
+                Mathf.Sin(angleSpacing * i)* 3,
+                Mathf.Cos(angleSpacing * i)* 3, 
+                0);
         }
     }
 

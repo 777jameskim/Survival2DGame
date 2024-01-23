@@ -371,6 +371,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d2c5b1c0c9c5642aab22f28cc876f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pDatas:
+  - stand:
+    - {fileID: 978012912, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -1746337116, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: 1568079989, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -515329287, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    run:
+    - {fileID: -1413294825, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -835281720, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: 323694377, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: 226952688, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -1374332788, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -1176146041, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    dead:
+    - {fileID: 2129895255, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    - {fileID: -810896228, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+    speedMod: 1.1
+    fireMod: 1
+    atkMod: 1
+    rangeMod: 1
+  - stand:
+    - {fileID: -150523396, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: -1592204662, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 1438553564, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 381631601, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    run:
+    - {fileID: 1363809998, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: -188091907, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 847793873, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 937111007, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 1842362625, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: -1732568499, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    dead:
+    - {fileID: 1375599644, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    - {fileID: 1929632063, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+    speedMod: 1
+    fireMod: 1.1
+    atkMod: 1
+    rangeMod: 1
+  - stand:
+    - {fileID: -1442216141, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: 1876572452, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: 1450094454, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -691204398, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    run:
+    - {fileID: 1267830177, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -1329620532, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -1514273703, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -122319798, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -204580230, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: 1373893111, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    dead:
+    - {fileID: 1191623988, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    - {fileID: -1059608199, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
+    speedMod: 1
+    fireMod: 1
+    atkMod: 1.2
+    rangeMod: 1
+  - stand:
+    - {fileID: 938132271, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -791905833, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: 1684076649, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: 1883720508, guid: 57a1443e67528144aa07582927559650, type: 3}
+    run:
+    - {fileID: -2088749509, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -1836318166, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -198311514, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -1997520891, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -1017442464, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: -2066638598, guid: 57a1443e67528144aa07582927559650, type: 3}
+    dead:
+    - {fileID: 369909130, guid: 57a1443e67528144aa07582927559650, type: 3}
+    - {fileID: 1773231339, guid: 57a1443e67528144aa07582927559650, type: 3}
+    speedMod: 1
+    fireMod: 1
+    atkMod: 1
+    rangeMod: 1.2
 --- !u!4 &892882519
 Transform:
   m_ObjectHideFlags: 0
