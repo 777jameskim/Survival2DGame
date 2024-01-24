@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy0 : Monster
+public class Enemy1 : Monster
 {
     [SerializeField] private int mjdIndex;
     private JSONdata.MonsterJSONdata mjd;

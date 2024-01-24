@@ -1,0 +1,25 @@
+{
+  "monster": [
+    {
+      "speed": 1.0,
+      "power": 1,
+      "hitdelaytime": 0.3,
+      "atkrange": 1.0,
+      "atkdelay": 0.5
+    },
+    {
+      "speed": 2.0,
+      "power": 5,
+      "hitdelaytime": 0.5,
+      "atkrange": 1.0,
+      "atkdelay": 0.5
+    },
+    {
+      "speed": 4.0,
+      "power": 10,
+      "hitdelaytime": 0.2,
+      "atkrange": 1.5,
+      "atkdelay": 0.3
+    }
+  ]
+}

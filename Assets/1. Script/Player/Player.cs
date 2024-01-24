@@ -228,32 +228,36 @@ public class Player : MonoBehaviour
 
     private void PWgenerate()
     {
+        int count = pwRot.childCount;
         PassiveWeapon pw = Instantiate(pws[Random.Range(0,pws.Length)]);
         pw.transform.SetParent(pwRot);
-        PWposition();
+        PWposition(count + 1);
     }
 
     private void PWdelete()
     {
-        Destroy(pwRot.GetChild(pwRot.childCount - 1).gameObject);
-        PWposition();
+        int count = pwRot.childCount;
+        Destroy(pwRot.GetChild(count - 1).gameObject);
+        PWposition(count - 1);
     }
 
-    private void PWposition()
+    private void PWposition(int count)
     {
-        if (pwRot.childCount == 0) return;
-        float angleSpacing = 2 * Mathf.PI / pwRot.childCount;
-        for(int i = 0; i < pwRot.childCount; i++)
+        if (count == 0) return;
+        float angle = pwRot.GetChild(0).rotation.z * Mathf.Deg2Rad;
+        float angleSpacing = 2 * Mathf.PI / count;
+        foreach(Transform child in pwRot)
         {
-            pwRot.GetChild(i).position = new Vector3(
-                Mathf.Sin(angleSpacing * i)* 3,
-                Mathf.Cos(angleSpacing * i)* 3, 
+            child.localPosition = new Vector3(
+                Mathf.Sin(angle) * GameParams.passiveSpace,
+                Mathf.Cos(angle) * GameParams.passiveSpace,
                 0);
+            angle += angleSpacing;
         }
     }
 
     private void PWrotate()
     {
-        pwRot.Rotate(Vector3.back * Time.deltaTime * GameParams.passiveSpin * Mathf.Rad2Deg);
+        pwRot.Rotate(GameParams.passiveSpin * Mathf.Rad2Deg * Time.deltaTime * Vector3.back);
     }
 }

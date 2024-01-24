@@ -19,6 +19,8 @@ public abstract class Monster : MonoBehaviour
     private float hitTimer;
     private float attackTimer;
 
+    [HideInInspector] public Transform expParent;
+
     public virtual void Init()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -88,6 +90,7 @@ public abstract class Monster : MonoBehaviour
             EXP exp = Instantiate(exps[Random.Range(0, GameParams.stage)], transform.position, Quaternion.identity);
             exp.SetPlayer(p);
             exp.valueEXP = data.EXP;
+            exp.transform.SetParent(expParent);
             p.KillCount++;
         }
     }

@@ -74,7 +74,8 @@ public static class GameParams
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
-    public static float passiveSpin = 0.001f;
+    public static float passiveSpace = 3f;
+    public static float passiveSpin = 3f;
 
     //Game
     public static int stage = 1;

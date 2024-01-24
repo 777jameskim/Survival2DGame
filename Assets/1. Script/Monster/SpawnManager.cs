@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private Monster[] mons;
-    [SerializeField] private Transform parent;
+    [SerializeField] private Transform monParent;
+    [SerializeField] private Transform expParent;
     [SerializeField] private GameObject[] sps;
     [SerializeField] private float spawnTime;
     private float spawnTimer;
@@ -30,7 +31,8 @@ public class SpawnManager : MonoBehaviour
             if (m == null)
             {
                 m = Instantiate(mons[spawnIndex], Return_RandomPosition(), Quaternion.identity);
-                m.transform.SetParent(parent);
+                m.transform.SetParent(monParent);
+                m.expParent = expParent;
             }
             else
             {
