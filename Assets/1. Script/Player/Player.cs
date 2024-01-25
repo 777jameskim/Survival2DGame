@@ -103,7 +103,6 @@ public class Player : MonoBehaviour
     private float fireTimer;
 
     //Passive Weapon
-    [SerializeField] private int pwCount;
     [SerializeField] private PassiveWeapon[] pws;
     [SerializeField] private Transform pwRot;
 
@@ -202,6 +201,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Dead()
+    {
+        UI.Instance.ShowDeadPanel();
+        GameParams.state = GameState.Stop;
+    }
+
     public void FirePosRotation(Monster m)
     {
         Vector2 vec = transform.position - m.transform.position;
@@ -209,23 +214,30 @@ public class Player : MonoBehaviour
         fireRot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
-    public void Dead()
-    {
-        UI.Instance.ShowDeadPanel();
-        GameParams.state = GameState.Stop;
-    }
-
     private void FireBullet()
     {
         if (fireTimer >= fireDelay)
         {
             fireTimer = 0;
-            Bullet b = Instantiate(bullet, firePos);
-            b.transform.SetParent(bulletParent);
-            b.Power = Power * pData.atkMod;
+            Bullet b = Pool.Instance.GetBullet();
+            if (b == null)
+            {
+                b = Instantiate(bullet, firePos);
+                b.transform.SetParent(bulletParent);
+                b.Power = Power * pData.atkMod;
+            }
+            else
+            {
+                b.Power = Power * pData.atkMod;
+                b.transform.position = firePos.position;
+                b.transform.rotation = fireRot.rotation;
+                b.gameObject.SetActive(true);
+            }
+            b.InitPos = firePos.position;
         }
     }
 
+    //Passive Weapon
     private void PWgenerate()
     {
         int count = pwRot.childCount;
@@ -233,14 +245,12 @@ public class Player : MonoBehaviour
         pw.transform.SetParent(pwRot);
         PWposition(count + 1);
     }
-
     private void PWdelete()
     {
         int count = pwRot.childCount;
         Destroy(pwRot.GetChild(count - 1).gameObject);
         PWposition(count - 1);
     }
-
     private void PWposition(int count)
     {
         if (count == 0) return;
@@ -248,10 +258,10 @@ public class Player : MonoBehaviour
         float angleSpacing = 2 * Mathf.PI / count;
         foreach(Transform child in pwRot)
         {
-            child.localPosition = new Vector3(
-                Mathf.Sin(angle) * GameParams.passiveSpace,
-                Mathf.Cos(angle) * GameParams.passiveSpace,
-                0);
+            PassiveWeapon pw = child.GetComponent<PassiveWeapon>();
+            child.localPosition = pw.AngleNorm(angle) * GameParams.passiveSpace;
+            child.localRotation = Quaternion.Euler(Vector3.forward * -angle * Mathf.Rad2Deg);
+            pw.angle = angle;
             angle += angleSpacing;
         }
     }

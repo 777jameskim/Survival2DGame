@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8746295583207144902}
   - component: {fileID: 8746295583207144896}
   - component: {fileID: 8746295583207144897}
-  - component: {fileID: 8746295583207144899}
+  - component: {fileID: 2916711223464066016}
   m_Layer: 0
-  m_Name: Scythe
+  m_Name: Shovel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 762804792, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  m_Sprite: {fileID: 1737672109, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,8 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9606fd468e09045e3ab3bf7b773e738c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!60 &8746295583207144899
-PolygonCollider2D:
+  spinSpeed: 0
+  ySpeed: 2
+  angle: 0
+--- !u!61 &2916711223464066016
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,21 +111,19 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.7222222}
+    oldSize: {x: 0.3888889, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.2, y: 0.3}
-      - {x: -0.2, y: -0.3}
-      - {x: 0.23913446, y: -0.014075786}
+  serializedVersion: 2
+  m_Size: {x: 0.35, y: 0.35}
+  m_EdgeRadius: 0

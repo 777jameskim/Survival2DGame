@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 803140161}
   - component: {fileID: 803140160}
   m_Layer: 0
-  m_Name: '[ Monster Pool ]'
+  m_Name: '[ Pool ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -738,7 +738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803140159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6297758, y: 7.193144, z: 0.7153905}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9268,7 +9268,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mons:
   - {fileID: 5964973429869232115, guid: 81fa1b74398a20d46ba8dc83b01bb97f, type: 3}
+  - {fileID: -361938101681826346, guid: 9f86dabfac015ea4cba45847efd32f4f, type: 3}
+  - {fileID: 7892106850216304342, guid: 237899ee2165ba84b9bf5b3aaa9a9a66, type: 3}
+  - {fileID: 1857475342468316577, guid: c7418b32a8e6d29439e6f43301f982ca, type: 3}
+  - {fileID: -8105346661933385132, guid: 64232d915486f2b4ba5a8fe3032de0d3, type: 3}
   monParent: {fileID: 1554119277}
+  exps:
+  - {fileID: 2818244262967688709, guid: d9e334ee221686d4cb9f060e6ed3ce66, type: 3}
+  - {fileID: 2818244262967688709, guid: 9783fc765eb218a4c85db3d0dc839b1f, type: 3}
+  - {fileID: 2818244262967688709, guid: 7e885b793cf91cb48b85d6294e52bf8d, type: 3}
   expParent: {fileID: 1270708456}
   sps:
   - {fileID: 1915044284}
@@ -9328,9 +9336,10 @@ MonoBehaviour:
   fireRot: {fileID: 1991627709}
   firePos: {fileID: 1187709453}
   bulletParent: {fileID: 1374020854}
-  pwCount: 0
   pws:
+  - {fileID: 8746295583207144897, guid: 7d7ecd8f8ddd182449ceea435969cae4, type: 3}
   - {fileID: 8746295583207144897, guid: c32451f6f13966e4ca375c5b138bd9a3, type: 3}
+  - {fileID: 8746295583207144897, guid: 2eed2cb48e1ab7847832945827e9c31e, type: 3}
   pwRot: {fileID: 351964810}
 --- !u!212 &1357096331
 SpriteRenderer:

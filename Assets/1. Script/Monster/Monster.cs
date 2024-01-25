@@ -9,7 +9,6 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] protected List<Sprite> run;
     [SerializeField] protected List<Sprite> hit;
     [SerializeField] protected List<Sprite> dead;
-    [SerializeField] protected List<EXP> exps;
 
     private Player p;
     protected SpriteRenderer sr;
@@ -19,7 +18,8 @@ public abstract class Monster : MonoBehaviour
     private float hitTimer;
     private float attackTimer;
 
-    [HideInInspector] public Transform expParent;
+    protected List<EXP> exps;
+    protected Transform expParent;
 
     public virtual void Init()
     {
@@ -27,6 +27,12 @@ public abstract class Monster : MonoBehaviour
         sa = GetComponent<SpriteAnimation>();
         state = MonsterState.Run;
         gameObject.tag = "monster";
+    }
+
+    public void SetEXPs(List<EXP> exps, Transform parent)
+    {
+        this.exps = exps;
+        this.expParent = parent;
     }
 
     // Update is called once per frame
@@ -87,7 +93,7 @@ public abstract class Monster : MonoBehaviour
             gameObject.tag = "Untagged";
             GetComponent<Collider2D>().enabled = false;
             sa.SetSprite(dead, 0.2f, Dead, 2f);
-            EXP exp = Instantiate(exps[Random.Range(0, GameParams.stage)], transform.position, Quaternion.identity);
+            EXP exp = Instantiate(exps[Random.Range(0, exps.Count)], transform.position, Quaternion.identity);
             exp.SetPlayer(p);
             exp.valueEXP = data.EXP;
             exp.transform.SetParent(expParent);
@@ -106,7 +112,7 @@ public abstract class Monster : MonoBehaviour
         if (b != null)
         {
             Hit(b.Power);
-            Destroy(collision.gameObject);
+            Pool.Instance.SetBullet(b);
         }
         PassiveWeapon pw = collision.GetComponent<PassiveWeapon>();
         if (pw != null)

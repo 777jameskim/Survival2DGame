@@ -7,13 +7,11 @@ public class Pool : Singleton<Pool>
     private Queue<Monster> QMonster = new Queue<Monster>();
     private Queue<Bullet> QBullet = new Queue<Bullet>();
 
-    public Monster GetMonster(Vector3 position)
+    public Monster GetMonster()
     {
         if (QMonster.Count == 0) return null;
         Monster m = QMonster.Dequeue();
-        m.transform.position = position;
         m.GetComponent<Collider2D>().enabled = true;
-        m.gameObject.SetActive(true);
         return m;
     }
 
@@ -21,5 +19,18 @@ public class Pool : Singleton<Pool>
     {
         monster.gameObject.SetActive(false);
         QMonster.Enqueue(monster);
+    }
+
+    public Bullet GetBullet()
+    {
+        if (QBullet.Count == 0) return null;
+        Bullet b = QBullet.Dequeue();
+        return b;
+    }
+
+    public void SetBullet(Bullet bullet)
+    {
+        bullet.gameObject.SetActive(false);
+        QBullet.Enqueue(bullet);
     }
 }
