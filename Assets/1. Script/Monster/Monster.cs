@@ -10,6 +10,9 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] protected List<Sprite> hit;
     [SerializeField] protected List<Sprite> dead;
 
+    private JSONdata.MonsterJSONdata mjd;
+    protected MonsterType monsterID;
+
     private Player p;
     protected SpriteRenderer sr;
     protected SpriteAnimation sa;
@@ -17,6 +20,7 @@ public abstract class Monster : MonoBehaviour
     private MonsterState state;
     private float hitTimer;
     private float attackTimer;
+    private float spriteTransition;
 
     protected List<EXP> exps;
     protected Transform expParent;
@@ -27,6 +31,17 @@ public abstract class Monster : MonoBehaviour
         sa = GetComponent<SpriteAnimation>();
         state = MonsterState.Run;
         gameObject.tag = "monster";
+
+        mjd = JSONdata.Instance.monsterJDB.monster[(int)monsterID];
+        data.HP = mjd.HP;
+        data.EXP = mjd.EXP;
+        data.speed = mjd.speed;
+        data.power = mjd.power;
+        data.hitDelayTime = mjd.hitdelaytime;
+        data.attackRange = mjd.atkrange;
+        data.attackDelay = mjd.atkdelay;
+        spriteTransition = mjd.spritetransition;
+        sa.SetSprite(sr, run, spriteTransition);
     }
 
     public void SetEXPs(List<EXP> exps, Transform parent)
@@ -48,7 +63,7 @@ public abstract class Monster : MonoBehaviour
             if (hitTimer <= 0)
             {
                 state = MonsterState.Run;
-                sa.SetSprite(run, 0.2f);
+                sa.SetSprite(run, spriteTransition);
             }
             else
                 return;

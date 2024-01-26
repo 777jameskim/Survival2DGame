@@ -7,11 +7,14 @@ public class JSONdata : Singleton<JSONdata>
     [System.Serializable]
     public class MonsterJSONdata
     {
+        public int HP;
+        public int EXP;
         public float speed;
         public int power;
         public float hitdelaytime;
         public float atkrange;
         public float atkdelay;
+        public float spritetransition;
     }
 
     [System.Serializable]

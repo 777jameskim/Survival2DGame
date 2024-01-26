@@ -1,39 +1,59 @@
 {
   "monster": [
     {
+      "name": "ZombieS",
+      "HP": 10,
+      "EXP": 10,
       "speed": 1.0,
       "power": 2,
       "hitdelaytime": 0.3,
       "atkrange": 1.0,
-      "atkdelay": 0.5
+      "atkdelay": 0.5,
+      "spritetransition": 0.2
     },
     {
+      "name": "ZombieL",
+      "HP": 10,
+      "EXP": 10,
       "speed": 2.0,
       "power": 5,
       "hitdelaytime": 0.5,
       "atkrange": 1.0,
-      "atkdelay": 0.5
+      "atkdelay": 0.5,
+      "spritetransition": 0.2
     },
     {
-      "speed": 4.0,
+      "name": "SkeletonS",
+      "HP": 10,
+      "EXP": 10,
+      "speed": 2.0,
       "power": 1,
       "hitdelaytime": 0.2,
       "atkrange": 1.5,
-      "atkdelay": 0.3
+      "atkdelay": 0.3,
+      "spritetransition": 0.2
     },
     {
-      "speed": 2.0,
+      "name": "SkeletonL",
+      "HP": 10,
+      "EXP": 10,
+      "speed": 4.0,
       "power": 5,
       "hitdelaytime": 0.5,
       "atkrange": 1.0,
-      "atkdelay": 0.5
+      "atkdelay": 0.5,
+      "spritetransition": 0.2
     },
     {
+      "name": "TombStone",
+      "HP": 10,
+      "EXP": 10,
       "speed": 0.5,
       "power": 10,
       "hitdelaytime": 0.2,
       "atkrange": 1.5,
-      "atkdelay": 1.0
+      "atkdelay": 1.0,
+      "spritetransition": 0.5
     }
   ]
 }

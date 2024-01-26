@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6200217216218971548}
   - component: {fileID: 6200217216218971549}
   - component: {fileID: 6200217216218971551}
+  - component: {fileID: 5964973429869232115}
   - component: {fileID: 6037636964505418054}
   - component: {fileID: 6845289905909415523}
-  - component: {fileID: -361938101681826346}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: ZombieS
   m_TagString: monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -493647738, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
+  m_Sprite: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +100,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3becf2f2056ebd44919ffd30e87401c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5964973429869232115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6200217216218971536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59acc95c4b764ce45a4e565d7ac466fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  run:
+  - {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  - {fileID: -140220566, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  - {fileID: 1611109861, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  - {fileID: 1488126946, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  hit:
+  - {fileID: -392852972, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  dead:
+  - {fileID: 1261089785, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  mjdIndex: 0
 --- !u!50 &6037636964505418054
 Rigidbody2D:
   serializedVersion: 4
@@ -137,27 +159,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 0.9}
   m_Direction: 0
---- !u!114 &-361938101681826346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6200217216218971536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db8f05c32f6e164e8b173aa946b41f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  run:
-  - {fileID: -493647738, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  - {fileID: 1354593876, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  - {fileID: 2018998915, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  - {fileID: 66914582, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  - {fileID: 1243161592, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  - {fileID: -1524729577, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  hit:
-  - {fileID: 194153472, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  dead:
-  - {fileID: -2007313318, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  mjdIndex: 1

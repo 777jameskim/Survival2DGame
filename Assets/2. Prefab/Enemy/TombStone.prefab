@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6200217216218971551}
   - component: {fileID: 6037636964505418054}
   - component: {fileID: 6845289905909415523}
-  - component: {fileID: 7892106850216304342}
+  - component: {fileID: -8105346661933385132}
   m_Layer: 0
-  m_Name: Enemy 2
+  m_Name: TombStone
   m_TagString: monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2092964637, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  m_Sprite: {fileID: 172626504, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,7 +137,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 0.9}
   m_Direction: 0
---- !u!114 &7892106850216304342
+--- !u!114 &-8105346661933385132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,20 +146,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6200217216218971536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e272cb679c89a40a566539284d330b, type: 3}
+  m_Script: {fileID: 11500000, guid: 59490ef5d24b4a24aa1342b6153c3542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   run:
-  - {fileID: -2092964637, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  - {fileID: -1199710013, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  - {fileID: -1584422274, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  - {fileID: 2078964560, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  - {fileID: -971271808, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  - {fileID: 86454189, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  - {fileID: 172626504, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
+  - {fileID: 626918169, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
   hit:
-  - {fileID: 1151968089, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  - {fileID: -966563848, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
   dead:
-  - {fileID: 297993398, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
-  exps:
-  - {fileID: 2818244262967688709, guid: d9e334ee221686d4cb9f060e6ed3ce66, type: 3}
-  mjdIndex: 2
+  - {fileID: 218841338, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
+  mjdIndex: 4

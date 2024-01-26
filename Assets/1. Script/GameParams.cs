@@ -1,3 +1,24 @@
+public enum MonsterType
+{
+    ZombieS,
+    ZombieL,
+    SkeletonS,
+    SkeletonL,
+    Tombstone
+}
+
+public enum ActiveWeapons
+{
+
+}
+
+public enum PassiveWeapons
+{
+    Pitchfork,
+    Scythe,
+    Shovel
+}
+
 public enum PlayerState
 {
     Stand,
@@ -17,16 +38,6 @@ public enum GameState
     Play,
     Pause,
     Stop
-}
-
-public enum ActiveWeapons
-{
-
-}
-
-public enum PassiveWeapons
-{
-
 }
 
 public class Data
@@ -74,6 +85,12 @@ public static class GameParams
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
     public static float playerRunDelay = 0.2f;
+
+    //Active Weapon
+    public static float activeX = 0.2f;
+    public static float activeY = -0.2f;
+
+    //Passive Weapon
     public static float passiveSpace = 2f;
     public static float passiveSpin = 3f;
     public static float passiveYtravel = 0.5f;

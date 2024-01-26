@@ -34,6 +34,8 @@ public class UI : Singleton<UI>
     [SerializeField] private Transform deadDesc;
     [SerializeField] private Transform deadButtons;
 
+    public FixedJoystick joystick;
+
     public void RefreshEXP()
     {
         expImage.rectTransform.sizeDelta = new Vector2(

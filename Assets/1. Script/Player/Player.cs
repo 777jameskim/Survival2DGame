@@ -92,15 +92,12 @@ public class Player : MonoBehaviour
     }
 
     //Active Weapon
-    [SerializeField] private Bullet bullet;
-    [SerializeField] private Transform fireRot;
-    [SerializeField] private Transform firePos;
+    [SerializeField] private ActiveWeapon aw;
     [SerializeField] private Transform bulletParent;
     private float fireDelay
     {
         get { return 1 / (data.fireSpeed * pData.fireMod); }
     }
-    private float fireTimer;
 
     //Passive Weapon
     [SerializeField] private PassiveWeapon[] pws;
@@ -131,7 +128,7 @@ public class Player : MonoBehaviour
         data.power = 1;
         data.fireSpeed = 5f;
 
-        //data.range = data.range * pData.rangeMod;
+        aw.SetAWdata(bulletParent, fireDelay, Power);
 
         HP = HP;
         EXP = EXP;
@@ -142,16 +139,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameParams.state != GameState.Play || state == PlayerState.Dead) return;
+        if (GameParams.state != GameState.Play
+            || state == PlayerState.Dead
+            || UI.Instance == null) return;
+
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed * pData.speedMod;
         float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed * pData.speedMod;
+
+        //float x = UI.Instance.joystick.Horizontal * Time.deltaTime * data.speed * pData.speedMod;
+        //float y = UI.Instance.joystick.Vertical * Time.deltaTime * data.speed * pData.speedMod;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
         float clampY = Mathf.Clamp(transform.position.y + y, -GameParams.playerY, GameParams.playerY);
 
         transform.position = new Vector2(clampX, clampY);
 
-        if (x > 0) sr.flipX = false;
-        else if (x < 0) sr.flipX = true;
+        if (x > 0)
+        {
+            sr.flipX = false;
+            aw.SetFlip(false);
+        }
+        else if (x < 0)
+        {
+            sr.flipX = true;
+            aw.SetFlip(true);
+        }
 
         if ((x != 0 || y != 0) && state == PlayerState.Stand)
         {
@@ -180,7 +191,7 @@ public class Player : MonoBehaviour
     {
         GameObject[] monObjs = GameObject.FindGameObjectsWithTag("monster");
         if (monObjs.Length == 0) return;
-        float targetDis = data.findRange;
+        float targetDis = data.findRange * pData.rangeMod;
         Monster targetMon = null;
         foreach (GameObject monObj in monObjs)
         {
@@ -193,11 +204,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (fireTimer <= fireDelay) fireTimer += Time.deltaTime;
         if (targetMon != null)
         {
             FirePosRotation(targetMon);
-            FireBullet();
+            aw.FireBullet();
         }
     }
 
@@ -207,34 +217,12 @@ public class Player : MonoBehaviour
         GameParams.state = GameState.Stop;
     }
 
+    //Active Weapon
     public void FirePosRotation(Monster m)
     {
         Vector2 vec = transform.position - m.transform.position;
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-        fireRot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-    }
-
-    private void FireBullet()
-    {
-        if (fireTimer >= fireDelay)
-        {
-            fireTimer = 0;
-            Bullet b = Pool.Instance.GetBullet();
-            if (b == null)
-            {
-                b = Instantiate(bullet, firePos);
-                b.transform.SetParent(bulletParent);
-                b.Power = Power * pData.atkMod;
-            }
-            else
-            {
-                b.Power = Power * pData.atkMod;
-                b.transform.position = firePos.position;
-                b.transform.rotation = fireRot.rotation;
-                b.gameObject.SetActive(true);
-            }
-            b.InitPos = firePos.position;
-        }
+        aw.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
     //Passive Weapon
