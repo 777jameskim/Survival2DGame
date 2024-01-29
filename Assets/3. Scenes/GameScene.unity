@@ -335,8 +335,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterJSON: {fileID: 4900000, guid: 60018593361458d4d8e8d9030076ec36, type: 3}
+  activeweaponJSON: {fileID: 4900000, guid: bd720ab242d010b4b9b64b52ed3dd0c2, type: 3}
   monsterJDB:
     monster: []
+  activeweaponJDB:
+    activeweapon: []
 --- !u!1 &248454008
 GameObject:
   m_ObjectHideFlags: 0
@@ -9348,7 +9351,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 938132271, guid: 57a1443e67528144aa07582927559650, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

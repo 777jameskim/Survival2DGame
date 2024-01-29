@@ -9,7 +9,9 @@ public enum MonsterType
 
 public enum ActiveWeapons
 {
-
+    Pistol,
+    Automatic,
+    Shotgun
 }
 
 public enum PassiveWeapons

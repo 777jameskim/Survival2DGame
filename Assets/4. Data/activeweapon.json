@@ -1,0 +1,11 @@
+{
+  "activeweapon": [
+    {
+      "name": "Pistol",
+      "fireposX": 0.8,
+      "fireposY": 0.14,
+      "firespeed": 5.0,
+      "power": 1.0
+    }
+  ]
+}

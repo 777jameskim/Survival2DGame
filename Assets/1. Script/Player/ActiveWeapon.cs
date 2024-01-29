@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,10 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
+
+    private JSONdata.ActiveWeaponJSONdata awjd;
+    [SerializeField] private ActiveWeapons awID;
+
     private Transform bulletParent;
     private float fireDelay;
     private float fireTimer;
@@ -16,7 +20,7 @@ public class ActiveWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        awjd = JSONdata.Instance.activeweaponJDB.activeweapon[(int)awID];
     }
 
     // Update is called once per frame
@@ -25,24 +29,34 @@ public class ActiveWeapon : MonoBehaviour
         if (fireTimer <= fireDelay) fireTimer += Time.deltaTime;
     }
 
-    public void SetFlip(bool flipX)
+    public void SetHand(bool right)
     {
-        if (flipX)
-        {
+        if (right)
+            transform.localPosition = new Vector3(GameParams.activeX, GameParams.activeY, 0);
+        else
             transform.localPosition = new Vector3(-GameParams.activeX, GameParams.activeY, 0);
-            sr.flipX = true;
+    }
+
+    public void SetPoint(bool right)
+    {
+        if (right)
+        {
+            sr.flipX = false;
+            firePos.localPosition = new Vector3(awjd.fireposX, awjd.fireposY, 0);
+            firePos.localRotation = Quaternion.Euler(new Vector3(0, 0, -90));
         }
         else
         {
-            transform.localPosition = new Vector3(GameParams.activeX, GameParams.activeY, 0);
-            sr.flipX = false;
+            sr.flipX = true;
+            firePos.localPosition = new Vector3(-awjd.fireposX, awjd.fireposY, 0);
+            firePos.localRotation = Quaternion.Euler(new Vector3(0, 0, 90));
         }
     }
 
-    public void SetAWdata(Transform parent, float delay, float power)
+    public void SetAWdata(Transform parent, float speed, float power)
     {
         this.bulletParent = parent;
-        this.fireDelay = delay;
+        this.fireDelay = 1 / speed;
         this.power = power;
     }
 

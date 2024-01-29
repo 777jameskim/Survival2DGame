@@ -94,9 +94,9 @@ public class Player : MonoBehaviour
     //Active Weapon
     [SerializeField] private ActiveWeapon aw;
     [SerializeField] private Transform bulletParent;
-    private float fireDelay
+    private float fireSpeed
     {
-        get { return 1 / (data.fireSpeed * pData.fireMod); }
+        get { return data.fireSpeed * pData.fireMod; }
     }
 
     //Passive Weapon
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
         data.power = 1;
         data.fireSpeed = 5f;
 
-        aw.SetAWdata(bulletParent, fireDelay, Power);
+        aw.SetAWdata(bulletParent, fireSpeed, Power);
 
         HP = HP;
         EXP = EXP;
@@ -153,15 +153,17 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector2(clampX, clampY);
 
-        if (x > 0)
+        if (x > 0 && sr.flipX)
         {
             sr.flipX = false;
-            aw.SetFlip(false);
+            aw.SetHand(true);
+            aw.SetPoint(true);
         }
-        else if (x < 0)
+        else if (x < 0 && !sr.flipX)
         {
             sr.flipX = true;
-            aw.SetFlip(true);
+            aw.SetHand(false);
+            aw.SetPoint(false);
         }
 
         if ((x != 0 || y != 0) && state == PlayerState.Stand)
@@ -206,7 +208,9 @@ public class Player : MonoBehaviour
 
         if (targetMon != null)
         {
-            FirePosRotation(targetMon);
+            if (transform.position.x < targetMon.transform.position.x) aw.SetPoint(true); //enemy @ right
+            else if (transform.position.x > targetMon.transform.position.x) aw.SetPoint(false); // enemy @ left
+            AWrotation(targetMon);
             aw.FireBullet();
         }
     }
@@ -218,7 +222,7 @@ public class Player : MonoBehaviour
     }
 
     //Active Weapon
-    public void FirePosRotation(Monster m)
+    public void AWrotation(Monster m)
     {
         Vector2 vec = transform.position - m.transform.position;
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;

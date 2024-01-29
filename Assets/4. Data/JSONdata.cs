@@ -18,17 +18,35 @@ public class JSONdata : Singleton<JSONdata>
     }
 
     [System.Serializable]
+    public class ActiveWeaponJSONdata
+    {
+        public float fireposX;
+        public float fireposY;
+        public float speed;
+        public float power;
+    }
+
+    [System.Serializable]
     public class MonsterJSON
     {
         public List<MonsterJSONdata> monster = new List<MonsterJSONdata>();
     }
 
+    [System.Serializable]
+    public class ActiveWeaponJSON
+    {
+        public List<ActiveWeaponJSONdata> activeweapon = new List<ActiveWeaponJSONdata>();
+    }
+
     [SerializeField] private TextAsset monsterJSON;
+    [SerializeField] private TextAsset activeweaponJSON;
     public MonsterJSON monsterJDB;
+    public ActiveWeaponJSON activeweaponJDB;
 
     // Start is called before the first frame update
     void Start()
     {
         monsterJDB = JsonUtility.FromJson<MonsterJSON>(monsterJSON.text);
+        activeweaponJDB = JsonUtility.FromJson<ActiveWeaponJSON>(activeweaponJSON.text);
     }
 }
