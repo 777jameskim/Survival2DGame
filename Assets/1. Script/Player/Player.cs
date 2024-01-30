@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public float EXP
+    public int EXP
     {
         get { return data.EXP; }
         set
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public float MaxEXP
+    public int MaxEXP
     {
         get { return data.maxEXP; }
         set
@@ -208,9 +208,16 @@ public class Player : MonoBehaviour
 
         if (targetMon != null)
         {
-            if (transform.position.x < targetMon.transform.position.x) aw.SetPoint(true); //enemy @ right
-            else if (transform.position.x > targetMon.transform.position.x) aw.SetPoint(false); // enemy @ left
-            AWrotation(targetMon);
+            if (transform.position.x < targetMon.transform.position.x)
+            { //enemy @ right
+                aw.SetPoint(true);
+                AWrotation(targetMon, false);
+            }
+            else if (transform.position.x > targetMon.transform.position.x)
+            { // enemy @ left
+                aw.SetPoint(false);
+                AWrotation(targetMon, true);
+            }
             aw.FireBullet();
         }
     }
@@ -222,11 +229,11 @@ public class Player : MonoBehaviour
     }
 
     //Active Weapon
-    public void AWrotation(Monster m)
+    public void AWrotation(Monster m, bool flip)
     {
         Vector2 vec = transform.position - m.transform.position;
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-        aw.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        aw.transform.rotation = Quaternion.AngleAxis((flip) ? angle - 90 : angle + 90, Vector3.forward);
     }
 
     //Passive Weapon

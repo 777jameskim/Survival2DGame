@@ -1,11 +1,4 @@
-public enum MonsterType
-{
-    ZombieS,
-    ZombieL,
-    SkeletonS,
-    SkeletonL,
-    Tombstone
-}
+using System.Collections.Generic;
 
 public enum ActiveWeapons
 {
@@ -45,7 +38,7 @@ public enum GameState
 public class Data
 {
     public float HP;
-    public float EXP;
+    public int EXP;
     public float speed;
     public float power;
 }
@@ -53,7 +46,7 @@ public class Data
 public class PlayerData : Data
 {
     public float maxHP;
-    public float maxEXP;
+    public int maxEXP;
     public float findRange;
     public int killCount;
     public int level;
@@ -107,4 +100,14 @@ public static class GameParams
     public static float pickupDistance = 3f;
     public static float collectDistance = 0.3f;
     public static float itemSpeed = 5f;
+
+    //EXP
+    public static readonly Dictionary<EXPtype, int> EXPvalue
+        = new Dictionary<EXPtype, int>
+        {
+            {EXPtype.BRONZE, 1},
+            {EXPtype.SILVER, 5},
+            {EXPtype.GOLD, 25}
+        };
+    public static float expSpawnRange = 1.0f;
 }

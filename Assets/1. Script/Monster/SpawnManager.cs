@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private Monster[] mons;
     [SerializeField] private Transform monParent;
-    [SerializeField] private List<EXP> exps;
+    [SerializeField] private EXP exp;
     [SerializeField] private Transform expParent;
     [SerializeField] private GameObject[] sps;
     [SerializeField] private float spawnTime;
@@ -26,14 +26,14 @@ public class SpawnManager : MonoBehaviour
         if (spawnTimer > spawnTime)
         {
             spawnTimer = 0;
-            int spawnIndex = Random.Range(0, mons.Length);
+            int monID = Random.Range(0, mons.Length);
 
-            Monster m = Pool.Instance.GetMonster();
+            Monster m = Pool.Instance.GetMonster((MonsterType)monID);
             if (m == null)
             {
-                m = Instantiate(mons[spawnIndex], Return_RandomPosition(), Quaternion.identity);
+                m = Instantiate(mons[monID], Return_RandomPosition(), Quaternion.identity);
                 m.transform.SetParent(monParent);
-                m.SetEXPs(exps, expParent);
+                m.SetEXP(exp, expParent);
             }
             else
             {

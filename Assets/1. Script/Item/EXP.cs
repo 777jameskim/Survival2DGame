@@ -4,16 +4,16 @@ using UnityEngine;
 
 public enum EXPtype
 {
-    BRONZE,
+    GOLD,
     SILVER,
-    GOLD
+    BRONZE
 }
 
 public class EXP : MonoBehaviour
 {
     private Player p;
     [SerializeField] private Sprite[] sprite;
-    public float valueEXP { get; set; } = 0;
+    public int valueEXP { get; set; } = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class EXP : MonoBehaviour
                 if(distance < GameParams.collectDistance)
                 {
                     p.EXP += valueEXP;
-                    Destroy(gameObject);
+                    Pool.Instance.SetEXP(this);
                 }
             }
         }

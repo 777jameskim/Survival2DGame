@@ -1,6 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum MonsterType
+{
+    ZombieS,
+    ZombieL,
+    SkeletonS,
+    SkeletonL,
+    Tombstone
+}
 
 [RequireComponent(typeof(SpriteAnimation))]
 
@@ -22,7 +32,7 @@ public abstract class Monster : MonoBehaviour
     private float attackTimer;
     private float spriteTransition;
 
-    protected List<EXP> exps;
+    protected EXP exp;
     protected Transform expParent;
 
     public virtual void Init()
@@ -44,9 +54,9 @@ public abstract class Monster : MonoBehaviour
         sa.SetSprite(sr, run, spriteTransition);
     }
 
-    public void SetEXPs(List<EXP> exps, Transform parent)
+    public void SetEXP(EXP exp, Transform parent)
     {
-        this.exps = exps;
+        this.exp = exp;
         this.expParent = parent;
     }
 
@@ -108,17 +118,41 @@ public abstract class Monster : MonoBehaviour
             gameObject.tag = "Untagged";
             GetComponent<Collider2D>().enabled = false;
             sa.SetSprite(dead, 0.2f, Dead, 2f);
-            EXP exp = Instantiate(exps[Random.Range(0, exps.Count)], transform.position, Quaternion.identity);
-            exp.SetPlayer(p);
-            exp.valueEXP = data.EXP;
-            exp.transform.SetParent(expParent);
+            GenerateEXP(data.EXP);
             p.KillCount++;
+        }
+    }
+
+    private void GenerateEXP(int value)
+    {
+        foreach(EXPtype type in Enum.GetValues(typeof(EXPtype)))
+        {
+            while (value >= GameParams.EXPvalue[type])
+            {
+                EXP exp = Pool.Instance.GetEXP();
+                if (exp == null)
+                {
+                    exp = Instantiate(this.exp);
+                    exp.SetPlayer(p);
+                    exp.transform.SetParent(expParent);
+                }
+                Vector3 randomPos = transform.position + new Vector3(
+                    UnityEngine.Random.Range(-GameParams.expSpawnRange, GameParams.expSpawnRange),
+                    UnityEngine.Random.Range(-GameParams.expSpawnRange, GameParams.expSpawnRange),
+                    0);
+                exp.SetSprite(type);
+                exp.valueEXP = GameParams.EXPvalue[type];
+                exp.transform.position = randomPos;
+                exp.gameObject.SetActive(true);
+                value -= GameParams.EXPvalue[type];
+                Debug.Log($"Generated EXP type {type}, remaining EXP: {value}");
+            }
         }
     }
 
     public void Dead()
     {
-        Pool.Instance.SetMonster(this);
+        Pool.Instance.SetMonster(this, monsterID);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

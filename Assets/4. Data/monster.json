@@ -3,7 +3,7 @@
     {
       "name": "ZombieS",
       "HP": 10,
-      "EXP": 10,
+      "EXP": 3,
       "speed": 1.0,
       "power": 2,
       "hitdelaytime": 0.3,
@@ -14,7 +14,7 @@
     {
       "name": "ZombieL",
       "HP": 10,
-      "EXP": 10,
+      "EXP": 8,
       "speed": 2.0,
       "power": 5,
       "hitdelaytime": 0.5,
@@ -25,7 +25,7 @@
     {
       "name": "SkeletonS",
       "HP": 10,
-      "EXP": 10,
+      "EXP": 5,
       "speed": 2.0,
       "power": 1,
       "hitdelaytime": 0.2,
@@ -36,7 +36,7 @@
     {
       "name": "SkeletonL",
       "HP": 10,
-      "EXP": 10,
+      "EXP": 12,
       "speed": 4.0,
       "power": 5,
       "hitdelaytime": 0.5,
@@ -47,7 +47,7 @@
     {
       "name": "TombStone",
       "HP": 10,
-      "EXP": 10,
+      "EXP": 30,
       "speed": 0.5,
       "power": 10,
       "hitdelaytime": 0.2,

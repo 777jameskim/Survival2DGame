@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    [SerializeField] private Transform fireRot;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
@@ -76,7 +75,7 @@ public class ActiveWeapon : MonoBehaviour
             {
                 b.Power = power;
                 b.transform.position = firePos.position;
-                b.transform.rotation = fireRot.rotation;
+                b.transform.rotation = firePos.rotation;
                 b.gameObject.SetActive(true);
             }
             b.InitPos = firePos.position;
