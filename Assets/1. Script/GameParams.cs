@@ -1,12 +1,5 @@
 using System.Collections.Generic;
 
-public enum ActiveWeapons
-{
-    Pistol,
-    Automatic,
-    Shotgun
-}
-
 public enum PassiveWeapons
 {
     Pitchfork,
@@ -40,7 +33,6 @@ public class Data
     public float HP;
     public int EXP;
     public float speed;
-    public float power;
 }
 
 public class PlayerData : Data
@@ -50,11 +42,11 @@ public class PlayerData : Data
     public float findRange;
     public int killCount;
     public int level;
-    public float fireSpeed;
 }
 
 public class MonsterData : Data
 {
+    public float power;
     public float hitDelayTime;
     public float attackRange;
     public float attackDelay;
@@ -75,7 +67,7 @@ public static class GameParams
     public static float cameraZ = -10f;
 
     //Player
-    public static int charSelect = 0;
+    public static int charSelect = 3;
     public static float playerX = 19f;
     public static float playerY = 19f;
     public static float playerStandDelay = 0.5f;
@@ -84,6 +76,8 @@ public static class GameParams
     //Active Weapon
     public static float activeX = 0.2f;
     public static float activeY = -0.2f;
+    public static float fireposX = 0.8f;
+    public static float fireposY = 0.11f;
 
     //Passive Weapon
     public static float passiveSpace = 2f;

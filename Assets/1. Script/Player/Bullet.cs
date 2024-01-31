@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Sprite[] sprites;
+    public SpriteRenderer sr;
     public float Power { get; set; }
     public float Speed { get; set; } = 10;
     public Vector3 InitPos;
+
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     // Update is called once per frame
     void Update()

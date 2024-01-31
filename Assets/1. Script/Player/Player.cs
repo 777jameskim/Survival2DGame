@@ -81,27 +81,42 @@ public class Player : MonoBehaviour
             UI.Instance.RefreshKillCount();
         }
     }
-    
-    public float Power
-    {
-        get { return data.power; }
-        set
-        {
-            data.power = value;
-        }
-    }
 
     //Active Weapon
     [SerializeField] private ActiveWeapon aw;
-    [SerializeField] private Transform bulletParent;
-    private float fireSpeed
+    private ActiveWeapons awID;
+    public ActiveWeapons AWtype
     {
-        get { return data.fireSpeed * pData.fireMod; }
+        get { return awID; }
+        set
+        {
+            awID = value;
+            aw.SetAW(awID);
+        }
+    }
+    private float ATKmod
+    {
+        get { return pData.atkMod; }
+        set
+        {
+            pData.atkMod = value;
+            aw.SetMod(value, FIREmod);
+        }
+    }
+    private float FIREmod
+    {
+        get { return pData.fireMod; }
+        set
+        {
+            pData.fireMod = value;
+            aw.SetMod(ATKmod, value);
+        }
     }
 
     //Passive Weapon
     [SerializeField] private PassiveWeapon[] pws;
     [SerializeField] private Transform pwRot;
+
 
     private void Awake()
     {
@@ -125,10 +140,9 @@ public class Player : MonoBehaviour
         data.maxEXP = 100;
         data.level = 1;
         data.killCount = 0;
-        data.power = 1;
-        data.fireSpeed = 5f;
 
-        aw.SetAWdata(bulletParent, fireSpeed, Power);
+        aw.SetAW(awID);
+        aw.SetMod(pData.atkMod, pData.fireMod);
 
         HP = HP;
         EXP = EXP;
@@ -186,6 +200,18 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             PWdelete();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            AWtype = ActiveWeapons.Pistol;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            AWtype = ActiveWeapons.Automatic;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            AWtype = ActiveWeapons.Shotgun;
         }
     }
 
@@ -247,6 +273,7 @@ public class Player : MonoBehaviour
     private void PWdelete()
     {
         int count = pwRot.childCount;
+        if (count == 0) return;
         Destroy(pwRot.GetChild(count - 1).gameObject);
         PWposition(count - 1);
     }

@@ -145,7 +145,6 @@ public abstract class Monster : MonoBehaviour
                 exp.transform.position = randomPos;
                 exp.gameObject.SetActive(true);
                 value -= GameParams.EXPvalue[type];
-                Debug.Log($"Generated EXP type {type}, remaining EXP: {value}");
             }
         }
     }

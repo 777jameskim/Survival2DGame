@@ -2,10 +2,18 @@
   "activeweapon": [
     {
       "name": "Pistol",
-      "fireposX": 0.8,
-      "fireposY": 0.14,
-      "firespeed": 5.0,
+      "speed": 5.0,
       "power": 1.0
+    },
+    {
+      "name": "Automatic",
+      "speed": 10.0,
+      "power": 0.4
+    },
+    {
+      "name": "Shotgun",
+      "speed": 2.5,
+      "power": 3.0
     }
   ]
 }

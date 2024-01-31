@@ -83,7 +83,7 @@ public class UI : Singleton<UI>
 
     public void OnClick(int index)
     {
-        GameManager.Instance.P.Power += datas[index].AddPower;
+        //GameManager.Instance.P.Power += datas[index].AddPower;
         lvPanel.SetActive(false);
         GameParams.state = GameState.Play;
     }
@@ -109,6 +109,11 @@ public class UI : Singleton<UI>
     {
         SceneManager.LoadScene("GameScene");
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+    }
+
+    public void ToggleAW(int awID)
+    {
+        p.AWtype = (ActiveWeapons)awID;
     }
 
     private void Awake()

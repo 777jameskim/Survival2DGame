@@ -20,8 +20,6 @@ public class JSONdata : Singleton<JSONdata>
     [System.Serializable]
     public class ActiveWeaponJSONdata
     {
-        public float fireposX;
-        public float fireposY;
         public float speed;
         public float power;
     }

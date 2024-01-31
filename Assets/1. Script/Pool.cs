@@ -19,6 +19,7 @@ public class Pool : Singleton<Pool>
     {
         if (DMonster[type].Count == 0) return null;
         Monster m = DMonster[type].Dequeue();
+        m.gameObject.tag = "monster";
         m.GetComponent<Collider2D>().enabled = true;
         return m;
     }

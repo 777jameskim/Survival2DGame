@@ -9305,7 +9305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpImage: {fileID: 613020763}
   aw: {fileID: 1991627710}
-  bulletParent: {fileID: 1374020854}
   pws:
   - {fileID: 8746295583207144897, guid: 7d7ecd8f8ddd182449ceea435969cae4, type: 3}
   - {fileID: 8746295583207144897, guid: c32451f6f13966e4ca375c5b138bd9a3, type: 3}
@@ -18084,7 +18083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2357648856987423821, guid: 197062e5cbdc37e4e9753d453bf2b76a, type: 3}
       propertyPath: m_Name
-      value: Pistol
+      value: ActiveWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 2858206778743433461, guid: 197062e5cbdc37e4e9753d453bf2b76a, type: 3}
+      propertyPath: bulletParent
+      value: 
+      objectReference: {fileID: 1374020854}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 197062e5cbdc37e4e9753d453bf2b76a, type: 3}
