@@ -27,7 +27,7 @@ public class UI : Singleton<UI>
     private Player p;
     private float timer;
 
-    [SerializeField] private ItemData[] datas;
+    [SerializeField] private ItemData[] items;
     [SerializeField] private GameObject lvPanel;
     [SerializeField] private GameObject deadPanel;
     [SerializeField] private Transform deadTitle;
@@ -35,6 +35,8 @@ public class UI : Singleton<UI>
     [SerializeField] private Transform deadButtons;
 
     public FixedJoystick joystick;
+
+    int awUp, pwUp, charUp;
 
     public void RefreshEXP()
     {
@@ -73,17 +75,37 @@ public class UI : Singleton<UI>
 
     public void ShowLevelUpPanel()
     {
-        lvUIs[0].icon.sprite = datas[0].ItemIcon;
-        lvUIs[0].titleText.text = datas[0].ItemName;
-        lvUIs[0].desc1Text.text = datas[0].ItemDesc1;
-        lvUIs[0].desc2Text.text = datas[0].ItemDesc2;
+        pwUp = Random.Range((int)ItemType.Shovel, (int)ItemType.Scythe);
+        lvUIs[0].icon.sprite = items[pwUp].ItemIcon;
+        lvUIs[0].titleText.text = items[pwUp].ItemName;
+        lvUIs[0].desc1Text.text = items[pwUp].ItemDesc1;
+        lvUIs[0].desc2Text.text = items[pwUp].ItemDesc2;
+        awUp = Random.Range((int)ItemType.Rifle, (int)ItemType.Shotgun);
+        lvUIs[1].icon.sprite = items[awUp].ItemIcon;
+        lvUIs[1].titleText.text = items[awUp].ItemName;
+        lvUIs[1].desc1Text.text = items[awUp].ItemDesc1;
+        lvUIs[1].desc2Text.text = items[awUp].ItemDesc2;
+        charUp = Random.Range((int)ItemType.Bag, (int)ItemType.Bullet);
+        lvUIs[2].icon.sprite = items[charUp].ItemIcon;
+        lvUIs[2].titleText.text = items[charUp].ItemName;
+        lvUIs[2].desc1Text.text = items[charUp].ItemDesc1;
+        lvUIs[2].desc2Text.text = items[charUp].ItemDesc2;
 
         lvPanel.SetActive(true);
     }
 
     public void OnClick(int index)
     {
-        //GameManager.Instance.P.Power += datas[index].AddPower;
+        switch(index)
+        {
+            case 0: //pwUp
+                break;
+            case 1: //awUp
+                ActiveWeapons type = (ActiveWeapons)awUp;
+                break;
+            case 2: //charUp
+                break;
+        }
         lvPanel.SetActive(false);
         GameParams.state = GameState.Play;
     }
@@ -135,5 +157,12 @@ public class UI : Singleton<UI>
         if (GameParams.state != GameState.Play) return;
         timer += Time.deltaTime;
         timeText.text = $"{((int)timer / 60).ToString("00")}:{((int)timer % 60).ToString("00")}";
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            ToggleAW(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            ToggleAW(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            ToggleAW(2);
     }
 }

@@ -2345,10 +2345,17 @@ MonoBehaviour:
   levelText: {fileID: 1672430923}
   killText: {fileID: 1775045837}
   timeText: {fileID: 2025411588}
-  datas:
+  items:
+  - {fileID: 11400000, guid: de3ee04ff12d88647938fa6a6e1a79d5, type: 2}
+  - {fileID: 11400000, guid: 639cce8580e16364a83cc2ea71124df2, type: 2}
+  - {fileID: 11400000, guid: ff8357e2c56b17747a7083223b0b0567, type: 2}
+  - {fileID: 11400000, guid: b5722c966bec78c47b5e2d27ea0fb850, type: 2}
+  - {fileID: 11400000, guid: e49cc8ff057eda04a83461574e849ef9, type: 2}
+  - {fileID: 11400000, guid: 0bb6944a334d75b44a6b5120aa371dae, type: 2}
+  - {fileID: 11400000, guid: df9fc5f4105b116498df3edacc62180f, type: 2}
   - {fileID: 11400000, guid: 5500494b301861a4f8f914ae7ed9f2e6, type: 2}
-  - {fileID: 11400000, guid: 5500494b301861a4f8f914ae7ed9f2e6, type: 2}
-  - {fileID: 11400000, guid: 5500494b301861a4f8f914ae7ed9f2e6, type: 2}
+  - {fileID: 11400000, guid: 1bc67ba9cea3e36469c62bbc3ac2dca0, type: 2}
+  - {fileID: 11400000, guid: d14dabc33b735d943b49b070be3a1492, type: 2}
   lvPanel: {fileID: 585667277}
   deadPanel: {fileID: 2138666358}
   deadTitle: {fileID: 1496883515}

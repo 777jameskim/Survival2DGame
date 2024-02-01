@@ -201,18 +201,6 @@ public class Player : MonoBehaviour
         {
             PWdelete();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            AWtype = ActiveWeapons.Pistol;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AWtype = ActiveWeapons.Automatic;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AWtype = ActiveWeapons.Shotgun;
-        }
     }
 
     private void FindMonster()

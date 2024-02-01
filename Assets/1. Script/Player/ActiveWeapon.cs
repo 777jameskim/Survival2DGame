@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ActiveWeapons
 {
-    Pistol,
+    Rifle,
     Automatic,
     Shotgun
 }

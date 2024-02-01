@@ -81,7 +81,7 @@ public static class GameParams
 
     //Passive Weapon
     public static float passiveSpace = 2f;
-    public static float passiveSpin = 3f;
+    public static float passiveSpin = 2f;
     public static float passiveYtravel = 0.5f;
 
     //Game
