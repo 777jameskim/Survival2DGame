@@ -201,7 +201,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1357096332}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &165905978
 SpriteRenderer:
@@ -373,7 +373,7 @@ RectTransform:
   m_Children:
   - {fileID: 1833957453}
   m_Father: {fileID: 1357096332}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -750,6 +750,37 @@ Transform:
   - {fileID: 1270708456}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &837994370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837994371}
+  m_Layer: 0
+  m_Name: PW Stock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &837994371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837994370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1357096332}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905933185
 GameObject:
@@ -9306,10 +9337,11 @@ MonoBehaviour:
   hpImage: {fileID: 613020763}
   aw: {fileID: 1991627710}
   pws:
+  - {fileID: 8746295583207144897, guid: 2eed2cb48e1ab7847832945827e9c31e, type: 3}
   - {fileID: 8746295583207144897, guid: 7d7ecd8f8ddd182449ceea435969cae4, type: 3}
   - {fileID: 8746295583207144897, guid: c32451f6f13966e4ca375c5b138bd9a3, type: 3}
-  - {fileID: 8746295583207144897, guid: 2eed2cb48e1ab7847832945827e9c31e, type: 3}
   pwRot: {fileID: 351964810}
+  pwStock: {fileID: 837994371}
 --- !u!212 &1357096331
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9376,6 +9408,7 @@ Transform:
   m_Children:
   - {fileID: 1991627709}
   - {fileID: 351964810}
+  - {fileID: 837994371}
   - {fileID: 248454009}
   - {fileID: 165905977}
   m_Father: {fileID: 0}

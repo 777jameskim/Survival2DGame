@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+public enum PassiveWeapons
+{
+    Shovel,
+    Pitchfork,
+    Scythe
+}
+
 public class PassiveWeapon : MonoBehaviour
 {
     public int Power { get; set; } = 1;

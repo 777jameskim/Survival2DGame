@@ -138,6 +138,11 @@ public class UI : Singleton<UI>
         p.AWtype = (ActiveWeapons)awID;
     }
 
+    public void TogglePW(int awID)
+    {
+        p.PWtype = (PassiveWeapons)awID;
+    }
+
     private void Awake()
     {
         if (GameManager.Instance == null) SceneManager.LoadScene("TitleScene");
@@ -164,5 +169,11 @@ public class UI : Singleton<UI>
             ToggleAW(1);
         if (Input.GetKeyDown(KeyCode.Alpha3))
             ToggleAW(2);
+        if (Input.GetKeyDown(KeyCode.Q))
+            TogglePW(0);
+        if (Input.GetKeyDown(KeyCode.W))
+            TogglePW(1);
+        if (Input.GetKeyDown(KeyCode.E))
+            TogglePW(2);
     }
 }

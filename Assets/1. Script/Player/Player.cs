@@ -116,6 +116,17 @@ public class Player : MonoBehaviour
     //Passive Weapon
     [SerializeField] private PassiveWeapon[] pws;
     [SerializeField] private Transform pwRot;
+    [SerializeField] private Transform pwStock;
+    private PassiveWeapons pwID;
+    public PassiveWeapons PWtype
+    {
+        get { return pwID; }
+        set
+        {
+            PWchange(pwID, value);
+            pwID = value;
+        }
+    }
 
 
     private void Awake()
@@ -157,11 +168,11 @@ public class Player : MonoBehaviour
             || state == PlayerState.Dead
             || UI.Instance == null) return;
 
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed * pData.speedMod;
-        float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed * pData.speedMod;
+        //float x = Input.GetAxis("Horizontal") * Time.deltaTime * data.speed * pData.speedMod;
+        //float y = Input.GetAxis("Vertical") * Time.deltaTime * data.speed * pData.speedMod;
 
-        //float x = UI.Instance.joystick.Horizontal * Time.deltaTime * data.speed * pData.speedMod;
-        //float y = UI.Instance.joystick.Vertical * Time.deltaTime * data.speed * pData.speedMod;
+        float x = UI.Instance.joystick.Horizontal * Time.deltaTime * data.speed * pData.speedMod;
+        float y = UI.Instance.joystick.Vertical * Time.deltaTime * data.speed * pData.speedMod;
         float clampX = Mathf.Clamp(transform.position.x + x, -GameParams.playerX, GameParams.playerX);
         float clampY = Mathf.Clamp(transform.position.y + y, -GameParams.playerY, GameParams.playerY);
 
@@ -194,13 +205,10 @@ public class Player : MonoBehaviour
         FindMonster();
         PWrotate();
 
-        if(Input.GetKeyDown(KeyCode.F1)){
+        if(Input.GetKeyDown(KeyCode.F1))
             PWgenerate();
-        }
         if (Input.GetKeyDown(KeyCode.F2))
-        {
             PWdelete();
-        }
     }
 
     private void FindMonster()
@@ -254,7 +262,9 @@ public class Player : MonoBehaviour
     private void PWgenerate()
     {
         int count = pwRot.childCount;
-        PassiveWeapon pw = Instantiate(pws[Random.Range(0,pws.Length)]);
+        PassiveWeapon pw = Pool.Instance.GetPW(pwID);
+        if (pw == null) pw = Instantiate(pws[(int)pwID]);
+        else pw.gameObject.SetActive(true);
         pw.transform.SetParent(pwRot);
         PWposition(count + 1);
     }
@@ -262,9 +272,12 @@ public class Player : MonoBehaviour
     {
         int count = pwRot.childCount;
         if (count == 0) return;
-        Destroy(pwRot.GetChild(count - 1).gameObject);
+        PassiveWeapon pw = pwRot.GetChild(count - 1).GetComponent<PassiveWeapon>();
+        pw.transform.SetParent(pwStock);
+        Pool.Instance.SetPW(pw, pwID);
         PWposition(count - 1);
     }
+
     private void PWposition(int count)
     {
         if (count == 0) return;
@@ -278,6 +291,22 @@ public class Player : MonoBehaviour
             pw.angle = angle;
             angle += angleSpacing;
         }
+    }
+
+    private void PWchange(PassiveWeapons fromPW, PassiveWeapons toPW)
+    {
+        int count = pwRot.childCount;
+        foreach (Transform child in pwRot)
+            Pool.Instance.SetPW(child.GetComponent<PassiveWeapon>(), fromPW);
+        for(int i = 0; i < count; i++)
+        {
+            pwRot.GetChild(0).SetParent(pwStock);
+            PassiveWeapon pw = Pool.Instance.GetPW(toPW);
+            if (pw == null) pw = Instantiate(pws[(int)toPW]);
+            else pw.gameObject.SetActive(true);
+            pw.transform.SetParent(pwRot);
+        }
+        PWposition(count);
     }
 
     private void PWrotate()

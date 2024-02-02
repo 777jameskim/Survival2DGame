@@ -6,6 +6,7 @@ using UnityEngine;
 public class Pool : Singleton<Pool>
 {
     private Dictionary<MonsterType,Queue<Monster>> DMonster = new Dictionary<MonsterType, Queue<Monster>>();
+    private Dictionary<PassiveWeapons,Queue<PassiveWeapon>> DPW = new Dictionary<PassiveWeapons, Queue<PassiveWeapon>>();
     private Queue<EXP> QEXP = new Queue<EXP>();
     private Queue<Bullet> QBullet = new Queue<Bullet>();
 
@@ -13,6 +14,8 @@ public class Pool : Singleton<Pool>
     {
         foreach (MonsterType type in Enum.GetValues(typeof(MonsterType)))
             DMonster.Add(type, new Queue<Monster>());
+        foreach (PassiveWeapons type in Enum.GetValues(typeof(PassiveWeapons)))
+            DPW.Add(type, new Queue<PassiveWeapon>());
     }
 
     public Monster GetMonster(MonsterType type)
@@ -28,6 +31,19 @@ public class Pool : Singleton<Pool>
     {
         monster.gameObject.SetActive(false);
         DMonster[type].Enqueue(monster);
+    }
+
+    public PassiveWeapon GetPW(PassiveWeapons type)
+    {
+        if (DPW[type].Count == 0) return null;
+        PassiveWeapon pw = DPW[type].Dequeue();
+        return pw;
+    }
+
+    public void SetPW(PassiveWeapon pw, PassiveWeapons type)
+    {
+        pw.gameObject.SetActive(false);
+        DPW[type].Enqueue(pw);
     }
 
     public Bullet GetBullet()

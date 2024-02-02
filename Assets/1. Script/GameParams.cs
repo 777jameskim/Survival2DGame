@@ -1,12 +1,5 @@
 using System.Collections.Generic;
 
-public enum PassiveWeapons
-{
-    Pitchfork,
-    Scythe,
-    Shovel
-}
-
 public enum PlayerState
 {
     Stand,
